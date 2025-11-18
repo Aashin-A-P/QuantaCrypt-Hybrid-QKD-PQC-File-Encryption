@@ -27,59 +27,56 @@ def test_keygen_speed(iterations=10):
         times.append((end-start)*1000)
 
     print("[METRIC] KeyGen Time")
-    print("Avg: {:.4f} ms".format(statistics.mean(times)))
-    print()
+    print(f"Avg: {statistics.mean(times):.4f} ms\n")
 
 
 def test_encap_decap(iterations=10):
     enc_times = []
     dec_times = []
-    fails = 0
+    failures = 0
 
     for _ in range(iterations):
         pk, sk = kem_keygen()
 
         start_enc = time.time()
-        ct, ssA = kem_encapsulate(pk)
+        ct, ss_sender = kem_encapsulate(pk)
         end_enc = time.time()
 
         start_dec = time.time()
-        ssB = kem_decapsulate(ct, sk, pk)
+        ss_receiver = kem_decapsulate(ct, sk, pk)
         end_dec = time.time()
-
-        if ssA == ssB:
-            pass
-        else:
-            fails += 1
 
         enc_times.append((end_enc-start_enc)*1000)
         dec_times.append((end_dec-start_dec)*1000)
 
-    print("[METRIC] Encapsulation/Decapsulation")
-    print("Failures:", fails)
-    print("Encap Avg: {:.4f} ms".format(statistics.mean(enc_times)))
-    print("Decap Avg: {:.4f} ms".format(statistics.mean(dec_times)))
-    print()
+        if ss_sender != ss_receiver:
+            failures += 1
+
+    print("[METRIC] Encapsulation / Decapsulation")
+    print(f"Failures: {failures}")
+    print(f"Encap Avg: {statistics.mean(enc_times):.4f} ms")
+    print(f"Decap Avg: {statistics.mean(dec_times):.4f} ms\n")
 
 
 def test_pqc_key_length():
     K_PQC, pk, ct = generate_pqc_shared_secret()
     print("[METRIC] PQC Shared Secret")
-    print("Length:", len(K_PQC), "bytes")
-    print("Public Key:", len(pk), "bytes")
-    print("Ciphertext:", len(ct), "bytes")
-    print()
+    print(f"K_PQC Length : {len(K_PQC)} bytes")
+    print(f"PK Length    : {len(pk)} bytes")
+    print(f"CT Length    : {len(ct)} bytes\n")
 
 
 def test_hybrid_key_derivation():
     k_qkd, qber = generate_qkd_key()
     k_pqc, _, _ = generate_pqc_shared_secret()
+
     hybrid = derive_hybrid_key(k_qkd, k_pqc, length_bytes=64)
 
-    print("[METRIC] Hybrid Key")
-    print("Hybrid Key Length:", len(hybrid))
-    print("QBER used:", qber*100, "%")
-    print()
+    print("[METRIC] Hybrid Key Derivation")
+    print(f"K_QKD Length   : {len(k_qkd)}")
+    print(f"K_PQC Length   : {len(k_pqc)}")
+    print(f"Hybrid Key Size: {len(hybrid)}")
+    print(f"QBER used      : {qber*100:.2f}%\n")
 
 
 if __name__ == "__main__":

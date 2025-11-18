@@ -1,110 +1,71 @@
 import secrets
 import hashlib
 
-# ============================================================
-#  KYBER-INSPIRED LATTICE KEM SIMULATOR (Pure Python)
-# ============================================================
+def random_bytes(n: int) -> bytes:
+    return secrets.token_bytes(n)
 
-def random_bytes(length: int):
-    """Secure random bytes."""
-    return secrets.token_bytes(length)
-
-
-def hash_kdf(*parts, length=32):
-    """Hash-based key derivation function (SHA3-512)."""
+def kdf(label: bytes, *parts: bytes, length: int = 32) -> bytes:
     h = hashlib.sha3_512()
+    h.update(label)
     for p in parts:
         h.update(p)
     return h.digest()[:length]
 
 
-# ============================================================
-#  Public Key + Secret Key Generation (Simulated)
-# ============================================================
-
 def kem_keygen():
     """
-    Generates:
-        pk = public key (simulated polynomial seed)
-        sk = secret key (simulated secret vector)
+    Toy Kyber-like KEM keygen.
+    sk: random secret seed
+    pk: derived from sk (so they are linked)
     """
-    pk = random_bytes(768)   # Kyber512 pk ≈ 800 bytes
-    sk = random_bytes(1568)  # Kyber512 sk ≈ 1632 bytes (approx)
+    sk = random_bytes(32)
+    pk = kdf(b"pk", sk, length=32)
     return pk, sk
 
 
-# ============================================================
-#  Encapsulation
-# ============================================================
-
 def kem_encapsulate(pk: bytes):
     """
-    Simulates IND-CCA2-secure encapsulation.
-
-    Returns:
-        ct  = ciphertext
-        ssA = shared secret at encapsulator (sender)
+    Encapsulator:
+      r  = random ephemeral
+      mask = KDF(mask, pk)
+      ct = r XOR mask
+      ss_sender = KDF(ss, pk, r)
     """
-    # Random encapsulation seed
     r = random_bytes(32)
+    mask = kdf(b"mask", pk, length=32)
+    ct = bytes(a ^ b for a, b in zip(r, mask))
+    ss_sender = kdf(b"ss", pk, r, length=32)
+    return ct, ss_sender
 
-    # Ciphertext derived from (pk, r)
-    ct = hash_kdf(pk, r, length=768)  # Simulated ciphertext
-
-    # Shared secret (sender)
-    ssA = hash_kdf(r, pk, ct, length=32)
-
-    return ct, ssA
-
-
-# ============================================================
-#  Decapsulation
-# ============================================================
 
 def kem_decapsulate(ct: bytes, sk: bytes, pk: bytes):
     """
-    Receiver reconstructs shared secret using:
-        - ciphertext
-        - secret key
-        - public key
-
-    This simulates the recovery mechanism in real Kyber.
+    Decapsulator:
+      mask = KDF(mask, pk)
+      r' = ct XOR mask
+      ss_receiver = KDF(ss, pk, r')
     """
-    ssB = hash_kdf(ct, sk, pk, length=32)
-    return ssB
+    mask = kdf(b"mask", pk, length=32)
+    r_prime = bytes(a ^ b for a, b in zip(ct, mask))
+    ss_receiver = kdf(b"ss", pk, r_prime, length=32)
+    return ss_receiver
 
 
-# ============================================================
-#  High-level PQC Shared Secret Generator
-# ============================================================
-
-def generate_pqc_shared_secret(key_length_bytes=32):
+def generate_pqc_shared_secret(key_length_bytes: int = 32):
     """
-    Produces:
-        K_PQC  = final post-quantum shared secret
-        pk     = public key
-        ct     = ciphertext
+    High-level interface:
+      - keygen
+      - encapsulate
+      - decapsulate
+      - derive final K_PQC via SHA3-512
     """
-
     pk, sk = kem_keygen()
     ct, ss_sender = kem_encapsulate(pk)
     ss_receiver = kem_decapsulate(ct, sk, pk)
 
-    # For perfect symmetric behavior, normalize using hash(r, pk, ct)
-    # Both sides MUST produce same output
-
     if ss_sender != ss_receiver:
-        # In simulated settings, this may differ slightly
-        # Fix by using deterministic derivation based on ct & pk
-        ss_final_sender = hash_kdf(ss_sender, ct, pk, length=key_length_bytes)
-        ss_final_receiver = hash_kdf(ss_receiver, ct, pk, length=key_length_bytes)
+        raise ValueError("KEM failure: shared secrets do not match.")
 
-        if ss_final_sender != ss_final_receiver:
-            raise ValueError("Simulated KEM mismatch — this should never occur.")
-        
-        K_PQC = ss_final_sender
-    else:
-        # Perfect match
-        K_PQC = ss_sender[:key_length_bytes]
-
+    digest = hashlib.sha3_512(ss_sender).digest()
+    K_PQC = digest[:key_length_bytes]
     return K_PQC, pk, ct
