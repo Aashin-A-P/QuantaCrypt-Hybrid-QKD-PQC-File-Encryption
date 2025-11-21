@@ -1,14 +1,9 @@
-# ==========================================================
-# io_utils.py  —  File reading/writing and safe I/O wrappers
-# ==========================================================
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import os
 
-# ----------------------------------------------------------
 # Read file bytes safely
-# ----------------------------------------------------------
 def read_file_bytes(path: str) -> bytes:
     if not os.path.exists(path):
         raise FileNotFoundError(f"File not found: {path}")
@@ -16,9 +11,7 @@ def read_file_bytes(path: str) -> bytes:
     with open(path, "rb") as f:
         return f.read()
 
-# ----------------------------------------------------------
 # Write bytes to a file safely
-# ----------------------------------------------------------
 def write_file_bytes(path: str, data: bytes):
     # If writing to current folder, dirname = "" -> skip folder creation
     folder = os.path.dirname(path)
@@ -28,28 +21,15 @@ def write_file_bytes(path: str, data: bytes):
     with open(path, "wb") as f:
         f.write(data)
 
-
-# ----------------------------------------------------------
-# Check if file is a QuantaCrypt encrypted file
-# ----------------------------------------------------------
 def is_project_file(data: bytes, magic: bytes) -> bool:
     return data.startswith(magic)
 
-# ----------------------------------------------------------
-# Convert file size to 8-byte big endian
-# ----------------------------------------------------------
 def pack_uint64(value: int) -> bytes:
     return value.to_bytes(8, byteorder="big")
 
-# ----------------------------------------------------------
-# Read 8-byte big endian int
-# ----------------------------------------------------------
 def unpack_uint64(data: bytes) -> int:
     return int.from_bytes(data, byteorder="big")
 
-# ----------------------------------------------------------
-# Validate file input path
-# ----------------------------------------------------------
 def ensure_file_exists(path: str):
     if not os.path.isfile(path):
         raise FileNotFoundError(f"File does not exist: {path}")

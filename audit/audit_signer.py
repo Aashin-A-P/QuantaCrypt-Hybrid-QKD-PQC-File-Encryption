@@ -1,6 +1,5 @@
-# ==========================================================
 # audit_signer.py — PQC signature for audit logs
-# ==========================================================
+
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -11,10 +10,8 @@ from pqc_signature.dilithium_sign import sign_message
 from pqc_signature.dilithium_verify import verify_signature
 from utils.constants import ENCODING
 
-
-# ----------------------------------------------------------
 # Sign a log entry (in-place)
-# ----------------------------------------------------------
+
 def sign_log_entry(entry: dict, sk: bytes, pk: bytes) -> dict:
     entry_bytes = json.dumps(entry, sort_keys=True).encode(ENCODING)
 
@@ -25,10 +22,8 @@ def sign_log_entry(entry: dict, sk: bytes, pk: bytes) -> dict:
 
     return entry
 
-
-# ----------------------------------------------------------
 # Verify a signed log entry
-# ----------------------------------------------------------
+
 def verify_log_entry(entry: dict) -> bool:
     sig = bytes.fromhex(entry["signature"])
     pk = bytes.fromhex(entry["public_key"])

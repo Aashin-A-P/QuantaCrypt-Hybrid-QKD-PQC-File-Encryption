@@ -1,6 +1,5 @@
-# ==========================================================
-# file_encryptor.py — AES-256-GCM encryption module
-# ==========================================================
+# AES-256-GCM encryption module
+
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -9,9 +8,6 @@ import os
 
 from utils.constants import NONCE_SIZE
 
-# ----------------------------------------------------------
-# Encrypt file bytes using AES-256-GCM
-# ----------------------------------------------------------
 def aes_gcm_encrypt(key: bytes, plaintext: bytes):
     """
     Returns: ciphertext, nonce, tag
@@ -30,9 +26,5 @@ def aes_gcm_encrypt(key: bytes, plaintext: bytes):
 
     return ciphertext_no_tag, nonce, tag
 
-
-# ----------------------------------------------------------
-# Public wrapper: encrypt from file bytes
-# ----------------------------------------------------------
 def encrypt_file_bytes(key: bytes, file_bytes: bytes):
     return aes_gcm_encrypt(key, file_bytes)

@@ -1,6 +1,4 @@
-# ==========================================================
 # qkd_simulator.py — Simulated BB84 Quantum Key Distribution
-# ==========================================================
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -8,21 +6,15 @@ import os
 import random
 from utils.hashing import sha3_512
 
-# ----------------------------------------------------------
 # Generate random bits
-# ----------------------------------------------------------
 def generate_random_bits(n: int):
     return [random.randint(0, 1) for _ in range(n)]
 
-# ----------------------------------------------------------
 # Generate random polarization bases (+ or ×)
-# ----------------------------------------------------------
 def generate_random_bases(n: int):
     return [random.choice(['+', 'x']) for _ in range(n)]
 
-# ----------------------------------------------------------
 # Measure photon based on sender/receiver bases
-# ----------------------------------------------------------
 def measure_bits(bits, sender_bases, receiver_bases):
     measured = []
     for b, s_base, r_base in zip(bits, sender_bases, receiver_bases):
@@ -32,9 +24,7 @@ def measure_bits(bits, sender_bases, receiver_bases):
             measured.append(random.randint(0, 1))  # Random
     return measured
 
-# ----------------------------------------------------------
 # Sift keys by comparing bases
-# ----------------------------------------------------------
 def sift_key(sender_bases, receiver_bases, sender_bits, receiver_bits):
     sifted = []
     for s_b, r_b, s_bit, r_bit in zip(sender_bases, receiver_bases, sender_bits, receiver_bits):
@@ -42,9 +32,7 @@ def sift_key(sender_bases, receiver_bases, sender_bits, receiver_bits):
             sifted.append(s_bit)
     return sifted
 
-# ----------------------------------------------------------
 # Convert bit list → bytes
-# ----------------------------------------------------------
 def bits_to_bytes(bits):
     # pad to multiple of 8
     while len(bits) % 8 != 0:
@@ -58,9 +46,8 @@ def bits_to_bytes(bits):
         output.append(byte)
     return bytes(output)
 
-# ----------------------------------------------------------
 # Full QKD handshake (Simulation)
-# ----------------------------------------------------------
+
 def run_qkd_key_exchange(bit_length: int = 256) -> bytes:
     # 1. Random bits & bases
     sender_bits = generate_random_bits(bit_length)

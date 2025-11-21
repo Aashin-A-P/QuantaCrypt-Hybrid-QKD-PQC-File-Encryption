@@ -1,14 +1,10 @@
-# ==========================================================
-# hybrid_key_derivation.py — Hybrid QKD + PQC key fusion
-# ==========================================================
+# Hybrid QKD + PQC key fusion
+
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from utils.hashing import sha3_512
 
-# ----------------------------------------------------------
-# Combine QKD & PQC keys (Hybrid)
-# ----------------------------------------------------------
 def derive_hybrid_key(qkd_key: bytes, pqc_secret: bytes) -> bytes:
     """
     Hybrid key = SHA3-512(QKD || PQC)

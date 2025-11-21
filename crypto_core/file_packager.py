@@ -1,6 +1,4 @@
-# ==========================================================
-# file_packager.py — Constructs file header + packaging
-# ==========================================================
+# File Header + Packaging
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -12,10 +10,7 @@ from utils.constants import (
 )
 from utils.io_utils import pack_uint64, unpack_uint64
 
-
-# ----------------------------------------------------------
-# Pack encrypted file with metadata header
-# ----------------------------------------------------------
+# Encrypted file + Metadata Header
 def package_encrypted_file(ciphertext: bytes, nonce: bytes, tag: bytes, original_file_size: int):
     """
     Returns a fully packaged encrypted file ready to be signed.
@@ -30,10 +25,8 @@ def package_encrypted_file(ciphertext: bytes, nonce: bytes, tag: bytes, original
 
     return bytes(header) + ciphertext
 
-
-# ----------------------------------------------------------
 # Unpack header + encrypted content
-# ----------------------------------------------------------
+
 def unpack_encrypted_file(packed_data: bytes):
     """
     Extracts metadata + ciphertext.
