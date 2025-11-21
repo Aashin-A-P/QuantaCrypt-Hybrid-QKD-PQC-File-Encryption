@@ -1,6 +1,8 @@
 # ==========================================================
 # file_encryptor.py — AES-256-GCM encryption module
 # ==========================================================
+import sys, os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 import os

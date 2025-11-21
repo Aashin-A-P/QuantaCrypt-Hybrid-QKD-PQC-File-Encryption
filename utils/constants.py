@@ -1,6 +1,8 @@
 # ==========================================================
 # constants.py  —  Common constants shared across modules
 # ==========================================================
+import sys, os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Magic bytes that identify project-specific encrypted files
 MAGIC_BYTES = b"QCFILE"

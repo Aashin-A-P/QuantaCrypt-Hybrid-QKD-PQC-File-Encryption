@@ -1,6 +1,8 @@
 # ==========================================================
 # qkd_simulator.py — Simulated BB84 Quantum Key Distribution
 # ==========================================================
+import sys, os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import os
 import random

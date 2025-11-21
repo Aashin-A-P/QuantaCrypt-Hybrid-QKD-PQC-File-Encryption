@@ -8,6 +8,8 @@
 #   - educational flow
 # Replace with pymlkem ML-KEM for real PQC security.
 # ==========================================================
+import sys, os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import secrets
 import hashlib

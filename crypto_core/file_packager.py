@@ -1,6 +1,8 @@
 # ==========================================================
 # file_packager.py — Constructs file header + packaging
 # ==========================================================
+import sys, os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from utils.constants import (
     MAGIC_BYTES,

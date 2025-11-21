@@ -1,6 +1,8 @@
 # ==========================================================
 # hybrid_key_derivation.py — Hybrid QKD + PQC key fusion
 # ==========================================================
+import sys, os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from utils.hashing import sha3_512
 

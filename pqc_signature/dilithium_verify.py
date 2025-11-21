@@ -1,6 +1,8 @@
 # ==========================================================
 # dilithium_verify.py — Simulated PQC Signature Verification
 # ==========================================================
+import sys, os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import hashlib
 
