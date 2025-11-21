@@ -4,10 +4,7 @@ import time
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 import hashlib
 
-
-# ============================================================
 #  KEY DERIVATION FROM HYBRID KEY (64 bytes)
-# ============================================================
 
 def derive_symmetric_keys(hybrid_key: bytes):
     """
@@ -23,10 +20,7 @@ def derive_symmetric_keys(hybrid_key: bytes):
 
     return enc_key, meta_key
 
-
-# ============================================================
 #  AES-GCM FILE ENCRYPTION
-# ============================================================
 
 def encrypt_file(input_path: str, output_path: str, hybrid_key: bytes):
     """
@@ -65,10 +59,7 @@ def encrypt_file(input_path: str, output_path: str, hybrid_key: bytes):
         "encryption_time_ms": (end - start) * 1000,
     }
 
-
-# ============================================================
 #  AES-GCM FILE DECRYPTION
-# ============================================================
 
 def decrypt_file(input_path: str, output_path: str, hybrid_key: bytes):
     """
