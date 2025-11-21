@@ -1,40 +1,74 @@
-# qkd_simulator.py — Simulated BB84 Quantum Key Distribution
+# qkd_simulator.py — Enhanced BB84 QKD with QBER + Eve Attack Detection
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import os
 import random
 from utils.hashing import sha3_512
 
-# Generate random bits
+
+# Random bit generator
 def generate_random_bits(n: int):
     return [random.randint(0, 1) for _ in range(n)]
 
-# Generate random polarization bases (+ or ×)
+
+# Random bases: '+' or 'x'
 def generate_random_bases(n: int):
     return [random.choice(['+', 'x']) for _ in range(n)]
 
-# Measure photon based on sender/receiver bases
+
+# Eve intercept-resend attack
+def eve_intercept(bits, bases, eve_enabled=False):
+    if not eve_enabled:
+        return bits, bases
+
+    eve_bits = []
+    eve_bases = generate_random_bases(len(bits))
+
+    # Eve measures bits incorrectly if basis mismatch
+    for b, s_base, e_base in zip(bits, bases, eve_bases):
+        if s_base == e_base:
+            eve_bits.append(b)
+        else:
+            eve_bits.append(random.randint(0, 1))
+
+    # Eve resends with her random basis
+    return eve_bits, eve_bases
+
+
+# Measurement at receiver
 def measure_bits(bits, sender_bases, receiver_bases):
     measured = []
     for b, s_base, r_base in zip(bits, sender_bases, receiver_bases):
         if s_base == r_base:
-            measured.append(b)   # Correct measurement
+            measured.append(b)
         else:
-            measured.append(random.randint(0, 1))  # Random
+            measured.append(random.randint(0, 1))
     return measured
 
-# Sift keys by comparing bases
+
+# Sift key
 def sift_key(sender_bases, receiver_bases, sender_bits, receiver_bits):
-    sifted = []
+    sifted_sender = []
+    sifted_receiver = []
+
     for s_b, r_b, s_bit, r_bit in zip(sender_bases, receiver_bases, sender_bits, receiver_bits):
         if s_b == r_b:
-            sifted.append(s_bit)
-    return sifted
+            sifted_sender.append(s_bit)
+            sifted_receiver.append(r_bit)
 
-# Convert bit list → bytes
+    return sifted_sender, sifted_receiver
+
+
+# QBER computation
+def compute_qber(sift_s, sift_r):
+    if len(sift_s) == 0:
+        return 1.0  # total failure
+    errors = sum(1 for a, b in zip(sift_s, sift_r) if a != b)
+    return errors / len(sift_s)
+
+
+# Convert bit array → bytes
 def bits_to_bytes(bits):
-    # pad to multiple of 8
     while len(bits) % 8 != 0:
         bits.append(0)
 
@@ -46,26 +80,32 @@ def bits_to_bytes(bits):
         output.append(byte)
     return bytes(output)
 
-# Full QKD handshake (Simulation)
 
-def run_qkd_key_exchange(bit_length: int = 256) -> bytes:
-    # 1. Random bits & bases
+# FULL QKD PIPELINE
+def run_qkd_key_exchange(bit_length: int = 256, eve=False):
+    # 1. Sender bits + bases
     sender_bits = generate_random_bits(bit_length)
     sender_bases = generate_random_bases(bit_length)
 
-    # 2. Receiver bases
+    # 2. Eve intercepts (optional)
+    intercepted_bits, intercepted_bases = eve_intercept(sender_bits, sender_bases, eve_enabled=eve)
+
+    # 3. Receiver chooses bases
     receiver_bases = generate_random_bases(bit_length)
 
-    # 3. Receiver measures photons
-    receiver_bits = measure_bits(sender_bits, sender_bases, receiver_bases)
+    # 4. Receiver measures
+    receiver_bits = measure_bits(intercepted_bits, intercepted_bases if eve else sender_bases, receiver_bases)
 
-    # 4. Sift key (matching bases only)
-    sifted = sift_key(sender_bases, receiver_bases, sender_bits, receiver_bits)
+    # 5. Sift matching-basis bits
+    sift_s, sift_r = sift_key(sender_bases, receiver_bases, sender_bits, receiver_bits)
 
-    # 5. Convert to bytes
-    sifted_bytes = bits_to_bytes(sifted)
+    # 6. QBER
+    qber = compute_qber(sift_s, sift_r)
 
-    # 6. Privacy amplification (SHA3-512 → 32 bytes output)
-    final_key = sha3_512(sifted_bytes)[:32]
+    # 7. If QBER too high → channel compromised
+    compromised = qber > 0.20
 
-    return final_key
+    # 8. Privacy amplification
+    final_key = sha3_512(bits_to_bytes(sift_s))[:32]
+
+    return final_key, qber, compromised
