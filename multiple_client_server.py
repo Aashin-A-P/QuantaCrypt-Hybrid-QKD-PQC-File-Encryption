@@ -3,7 +3,6 @@ import threading
 import struct
 import os
 
-# === Crypto modules ===
 from qkd.qkd_simulator import generate_qkd_key
 from pqc.kyber_simulator import generate_pqc_shared_secret
 from hybrid_key.key_fusion import derive_hybrid_key
@@ -13,12 +12,7 @@ from crypto_core.file_crypto import encrypt_file, decrypt_file
 HOST = "0.0.0.0"
 PORT = 9090
 
-clients = {}  # client_id → (conn, addr, hybrid_key)
-
-
-# ======================================================
-# Utility Message Protocol
-# ======================================================
+clients = {} 
 
 def send_msg(conn, opcode: int, payload: bytes = b""):
     conn.sendall(bytes([opcode]))
@@ -49,14 +43,10 @@ def recv_msg(conn):
     return opcode, payload
 
 
-# ======================================================
-# Handle Single Client Thread
-# ======================================================
-
+# Handle Single Client
 def handle_client(client_id, conn, addr):
     print(f"\n[SERVER] Client {client_id} connected from {addr}")
 
-    # === Create Hybrid Session Key ===
     k_qkd, _ = generate_qkd_key()
     k_pqc, _, _ = generate_pqc_shared_secret()
 
@@ -73,9 +63,6 @@ def handle_client(client_id, conn, addr):
             if opcode is None:
                 break
 
-            # ==================================================
-            # CLIENT → SERVER: Send File (0x10)
-            # ==================================================
             if opcode == 0x10:
                 name_len = struct.unpack(">Q", payload[:8])[0]
                 file_name = payload[8:8+name_len].decode()
@@ -92,9 +79,6 @@ def handle_client(client_id, conn, addr):
 
                 print(f"[SERVER] Saved decrypted file: {save_as}")
 
-            # ==================================================
-            # CLIENT → SERVER: Request File (0x20)
-            # ==================================================
             elif opcode == 0x20:
                 req_file = payload.decode()
                 print(f"[SERVER] {client_id} requested: {req_file}")
@@ -126,11 +110,6 @@ def handle_client(client_id, conn, addr):
     print(f"[SERVER] Client {client_id} disconnected")
     conn.close()
     del clients[client_id]
-
-
-# ======================================================
-# Server Admin Menu
-# ======================================================
 
 def admin_menu():
     while True:
@@ -176,11 +155,6 @@ def admin_menu():
         elif choice == "3":
             print("[SERVER] Shutting down...")
             os._exit(0)
-
-
-# ======================================================
-# Main Server
-# ======================================================
 
 def main():
     print("=== Quantum-Safe Multi-Client Secure File Transfer Server ===")
