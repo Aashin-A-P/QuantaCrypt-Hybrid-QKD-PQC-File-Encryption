@@ -4,14 +4,8 @@ import os
 
 from crypto_core.file_crypto import encrypt_file, decrypt_file
 
-
 HOST = "127.0.0.1"
 PORT = 9090
-
-
-# ======================================================
-# Utility Protocol
-# ======================================================
 
 def send_msg(conn, opcode: int, payload: bytes = b""):
     conn.sendall(bytes([opcode]))
@@ -37,11 +31,6 @@ def recv_msg(conn):
 
     return opcode, payload
 
-
-# ======================================================
-# Main Client
-# ======================================================
-
 def main():
     print("\n=== Quantum-Safe Secure File Transfer Client ===")
 
@@ -50,7 +39,6 @@ def main():
 
     print("[CLIENT] Connected to server.")
 
-    # Receive hybrid session key
     opcode, hybrid_key = recv_msg(s)
     print(f"[CLIENT] Session key received ({len(hybrid_key)} bytes)")
 
@@ -62,9 +50,6 @@ def main():
         print("==========================")
         choice = input("Select: ").strip()
 
-        # ============================================
-        # 1. Pull File from Server
-        # ============================================
         if choice == "1":
             file_req = input("Enter server file path: ").strip()
             send_msg(s, 0x20, file_req.encode())
@@ -74,7 +59,6 @@ def main():
                 print(payload.decode())
                 continue
 
-            # Parse filename
             name_len = struct.unpack(">Q", payload[:8])[0]
             file_name = payload[8:8+name_len].decode()
             encrypted_bytes = payload[8+name_len:]
@@ -86,9 +70,6 @@ def main():
             decrypt_file(temp, file_name, hybrid_key)
             print(f"[CLIENT] File saved as '{file_name}'")
 
-        # ============================================
-        # 2. Send File to Server
-        # ============================================
         elif choice == "2":
             path = input("Enter local file path: ").strip()
             if not os.path.exists(path):
@@ -109,9 +90,6 @@ def main():
             send_msg(s, 0x10, payload)
             print("[CLIENT] File sent to server.")
 
-        # ============================================
-        # 3. Exit
-        # ============================================
         elif choice == "3":
             print("[CLIENT] Exiting.")
             break
