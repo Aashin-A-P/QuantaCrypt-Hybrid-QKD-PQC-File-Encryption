@@ -13,23 +13,16 @@ from qkd.qkd_simulator import (
     sift_key
 )
 
-# -------------------------------------------------------------------
-# Create output folder for plots
-# -------------------------------------------------------------------
+# Output Folders
 PLOT_DIR = "plots/qkd_plots"
 os.makedirs(PLOT_DIR, exist_ok=True)
 
-# -------------------------------------------------------------------
-# Helper to save plot
-# -------------------------------------------------------------------
 def save_plot(name):
     plt.savefig(os.path.join(PLOT_DIR, name), dpi=300, bbox_inches='tight')
     plt.close()
 
-
-# ===================================================================
 # 1. QBER vs Attack Probability (Line Graph)
-# ===================================================================
+
 def plot_qber_vs_attack_prob():
     attack_probs = [0.0, 0.05, 0.1, 0.2, 0.3, 0.4]
     qbers = []
@@ -46,10 +39,8 @@ def plot_qber_vs_attack_prob():
     plt.grid(True)
     save_plot("qber_vs_attack_probability.png")
 
-
-# ===================================================================
 # 2. Sifted Bits Distribution (Bar Chart)
-# ===================================================================
+
 def plot_sifted_bit_distribution(raw_bits=1024):
     A_bits = generate_random_bits(raw_bits)
     A_bases = generate_random_bases(raw_bits)
@@ -63,10 +54,8 @@ def plot_sifted_bit_distribution(raw_bits=1024):
     plt.ylabel("Number of Bits")
     save_plot("sifted_bits_distribution.png")
 
-
-# ===================================================================
 # 3. Random Bit Frequency Histogram
-# ===================================================================
+
 def plot_random_bit_histogram(raw_bits=2048):
     bits = generate_random_bits(raw_bits)
     zeros = bits.count(0)
@@ -78,10 +67,8 @@ def plot_random_bit_histogram(raw_bits=2048):
     plt.ylabel("Count")
     save_plot("random_bit_histogram.png")
 
-
-# ===================================================================
 # 4. Key Generation Time (Bar Chart)
-# ===================================================================
+
 def plot_key_gen_time(iterations=10):
     times = []
     for _ in range(iterations):
@@ -97,15 +84,13 @@ def plot_key_gen_time(iterations=10):
     plt.ylabel("Time (ms)")
     save_plot("key_generation_time.png")
 
-
-# ===================================================================
 # 5. QBER Clean vs Eve (Bar Comparison)
-# ===================================================================
+
 def plot_qber_clean_vs_eve():
-    # Clean
+    # No Eavesdropping
     _, q_clean = generate_qkd_key()
 
-    # Eve Attack (20%)
+    # Eve Attack (20%) - Eavesdropping detected
     _, q_eve = generate_qkd_key(eve_attack=True, attack_prob=0.2)
 
     plt.figure(figsize=(6, 4))
@@ -114,26 +99,22 @@ def plot_qber_clean_vs_eve():
     plt.ylabel("QBER (%)")
     save_plot("qber_clean_vs_eve.png")
 
-
-# ===================================================================
-# MAIN - Generate all plots
-# ===================================================================
 if __name__ == "__main__":
     print("Generating QKD plots...")
 
     plot_qber_vs_attack_prob()
-    print("✓ QBER vs Attack Probability")
+    print("QBER vs Attack Probability")
 
     plot_sifted_bit_distribution()
-    print("✓ Sifted Bits Distribution")
+    print("Sifted Bits Distribution")
 
     plot_random_bit_histogram()
-    print("✓ Random Bit Distribution")
+    print("Random Bit Distribution")
 
     plot_key_gen_time()
-    print("✓ Key Generation Time Plot")
+    print("Key Generation Time Plot")
 
     plot_qber_clean_vs_eve()
-    print("✓ Clean vs Eve Attack QBER Plot")
+    print("Clean vs Eve Attack QBER Plot")
 
     print("\nAll plots saved in 'plots/' folder.")

@@ -18,7 +18,7 @@ def eve_intercept(bits, bases, attack_probability=0.1):
     for i in range(len(bits)):
         if secrets.randbelow(100) < attack_probability * 100:
             eve_basis = secrets.randbits(1)
-            # If Eve uses wrong basis, her measurement is random
+            # If Eve uses wrong basis -> her measurement is random
             eve_bit = bits[i] if eve_basis == bases[i] else secrets.randbits(1)
 
             # She resends using her basis and measured bit
@@ -62,7 +62,7 @@ def generate_qkd_key(key_length_bytes=32, raw_bits=1024, eve_attack=False, attac
     Returns: (K_QKD, qber)
     """
 
-    # A's ORIGINAL bits and bases (what A *actually* sent)
+    # A's ORIGINAL bits and bases (what A actually sent)
     A_bits = generate_random_bits(raw_bits)
     A_bases = generate_random_bases(raw_bits)
 
@@ -84,7 +84,7 @@ def generate_qkd_key(key_length_bytes=32, raw_bits=1024, eve_attack=False, attac
     # Sifting based on A's original bases and B's bases
     sifted, matched_indices = sift_key(A_bits, A_bases, B_bases)
 
-    # QBER: compare ORIGINAL A_bits vs B_bits on matched indices
+    # QBER: compare original A_bits vs B_bits on matched indices
     qber = calculate_qber(A_bits, B_bits, matched_indices)
 
     # Privacy amplification on sifted bits
