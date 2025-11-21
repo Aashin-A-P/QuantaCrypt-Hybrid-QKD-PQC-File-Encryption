@@ -3,20 +3,13 @@ import os
 import struct
 import argparse
 
-# ==== IMPORT YOUR EXISTING MODULES ====
 from qkd.qkd_simulator import generate_qkd_key
 from pqc.kyber_simulator import generate_pqc_shared_secret
 from hybrid_key.key_fusion import derive_hybrid_key
 from crypto_core.file_crypto import encrypt_file, decrypt_file
 
-
 HOST = "127.0.0.1"
 PORT = 9090
-
-
-# ===========================================================
-# Send & Receive utilities
-# ===========================================================
 
 def send_bytes(conn, data: bytes):
     conn.sendall(struct.pack(">Q", len(data)))
@@ -32,15 +25,9 @@ def recv_bytes(conn):
         data += packet
     return data
 
-
-# ===========================================================
-# SERVER LOGIC
-# ===========================================================
-
 def main():
     print("\n=== Quantum-Safe Secure File Transfer Server ===")
 
-    # ---- Generate session keys ----
     print("\n[1] Generating QKD key...")
     k_qkd, qber = generate_qkd_key()
 
@@ -52,7 +39,6 @@ def main():
 
     print(f"Hybrid key generated: {len(hybrid_key)} bytes\n")
 
-    # ---- Start TCP Server ----
     print(f"Listening on {HOST}:{PORT} ...")
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((HOST, PORT))
@@ -61,11 +47,9 @@ def main():
     conn, addr = s.accept()
     print(f"Client connected from {addr}")
 
-    # ---- Send hybrid key to client ----
     print("[SERVER] Sending session hybrid key to client...")
     send_bytes(conn, hybrid_key)
 
-    # ---- Menu Loop ----
     while True:
         print("\n===== SERVER MENU =====")
         print("1. Send file to client")
@@ -84,7 +68,6 @@ def main():
             res = encrypt_file(file_path, enc_path, hybrid_key)
             print(f"[SERVER] File encrypted → {enc_path}")
 
-            # send encrypted file
             print("[SERVER] Sending encrypted file to client...")
             data = open(enc_path, "rb").read()
             send_bytes(conn, data)

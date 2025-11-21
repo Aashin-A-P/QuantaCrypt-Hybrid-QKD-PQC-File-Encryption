@@ -9,11 +9,6 @@ from crypto_core.file_crypto import encrypt_file, decrypt_file
 HOST = "127.0.0.1"
 PORT = 9090
 
-
-# ===========================================================
-# Helpers
-# ===========================================================
-
 def send_bytes(conn, data: bytes):
     conn.sendall(struct.pack(">Q", len(data)))
     conn.sendall(data)
@@ -28,11 +23,6 @@ def recv_bytes(conn):
         data += packet
     return data
 
-
-# ===========================================================
-# CLIENT LOGIC
-# ===========================================================
-
 def main():
     print("\n=== Quantum-Safe Secure File Transfer Client ===")
     print(f"Connecting to server {HOST}:{PORT}...")
@@ -40,12 +30,10 @@ def main():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((HOST, PORT))
 
-    # ---- Receive session hybrid key ----
     print("[CLIENT] Receiving hybrid key...")
     hybrid_key = recv_bytes(s)
     print(f"[CLIENT] Hybrid key length: {len(hybrid_key)} bytes")
 
-    # ---- Menu Loop ----
     while True:
         print("\n===== CLIENT MENU =====")
         print("1. Receive file from server")
