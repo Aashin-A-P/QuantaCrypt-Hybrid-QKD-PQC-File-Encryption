@@ -1,4 +1,4 @@
-# audit_signer.py — PQC signature for audit logs
+# PQC signature for audit logs
 
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
