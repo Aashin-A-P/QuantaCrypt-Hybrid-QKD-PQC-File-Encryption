@@ -1,0 +1,995 @@
+{
+    "bit_lengths": [
+        128,
+        256,
+        512,
+        1024
+    ],
+    "runs_per_case": 20,
+    "metrics": {
+        "128": {
+            "no_eve": [
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.24986,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.19479,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.18454,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.19431,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.37241,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.18525,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.18501,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.19145,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.18406,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.18358,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.18144,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.18716,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.1862,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.18024,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.18334,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.18191,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.18239,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.18215,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.28443,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.1688,
+                    "sifted_key_length": 32
+                }
+            ],
+            "eve": [
+                {
+                    "qber": 0.2753623188405797,
+                    "compromised": true,
+                    "exec_time_ms": 0.24056,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2982456140350877,
+                    "compromised": true,
+                    "exec_time_ms": 0.22936,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.24193548387096775,
+                    "compromised": true,
+                    "exec_time_ms": 0.23508,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.26153846153846155,
+                    "compromised": true,
+                    "exec_time_ms": 0.24009,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.36507936507936506,
+                    "compromised": true,
+                    "exec_time_ms": 0.23341,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.1774193548387097,
+                    "compromised": true,
+                    "exec_time_ms": 0.24724,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.21428571428571427,
+                    "compromised": true,
+                    "exec_time_ms": 0.26417,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2878787878787879,
+                    "compromised": true,
+                    "exec_time_ms": 0.2439,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.234375,
+                    "compromised": true,
+                    "exec_time_ms": 0.24772,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.23333333333333334,
+                    "compromised": true,
+                    "exec_time_ms": 0.25082,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.234375,
+                    "compromised": true,
+                    "exec_time_ms": 0.24986,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.234375,
+                    "compromised": true,
+                    "exec_time_ms": 0.24939,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.23728813559322035,
+                    "compromised": true,
+                    "exec_time_ms": 0.25773,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2714285714285714,
+                    "compromised": true,
+                    "exec_time_ms": 0.26178,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2542372881355932,
+                    "compromised": true,
+                    "exec_time_ms": 0.25892,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.30158730158730157,
+                    "compromised": true,
+                    "exec_time_ms": 0.26178,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.3384615384615385,
+                    "compromised": true,
+                    "exec_time_ms": 0.26298,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.18666666666666668,
+                    "compromised": true,
+                    "exec_time_ms": 0.25463,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.1875,
+                    "compromised": true,
+                    "exec_time_ms": 0.24724,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2,
+                    "compromised": true,
+                    "exec_time_ms": 0.25582,
+                    "sifted_key_length": 32
+                }
+            ]
+        },
+        "256": {
+            "no_eve": [
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.61655,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.47112,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.45919,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.36359,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.38218,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.36097,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.36049,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.36502,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.3655,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.41795,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.45776,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.39721,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.4046,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.41604,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.55408,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.36025,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.35906,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.39649,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.43726,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.80729,
+                    "sifted_key_length": 32
+                }
+            ],
+            "eve": [
+                {
+                    "qber": 0.2457627118644068,
+                    "compromised": true,
+                    "exec_time_ms": 0.80371,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.27927927927927926,
+                    "compromised": true,
+                    "exec_time_ms": 1.46365,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.29457364341085274,
+                    "compromised": true,
+                    "exec_time_ms": 0.58937,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.26495726495726496,
+                    "compromised": true,
+                    "exec_time_ms": 0.51355,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.20610687022900764,
+                    "compromised": true,
+                    "exec_time_ms": 0.50473,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.24390243902439024,
+                    "compromised": true,
+                    "exec_time_ms": 0.50926,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2518518518518518,
+                    "compromised": true,
+                    "exec_time_ms": 0.50497,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2713178294573643,
+                    "compromised": true,
+                    "exec_time_ms": 0.50211,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2231404958677686,
+                    "compromised": true,
+                    "exec_time_ms": 0.49806,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.24770642201834864,
+                    "compromised": true,
+                    "exec_time_ms": 0.50068,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.296875,
+                    "compromised": true,
+                    "exec_time_ms": 0.50497,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.25,
+                    "compromised": true,
+                    "exec_time_ms": 0.52166,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.18699186991869918,
+                    "compromised": true,
+                    "exec_time_ms": 0.49925,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2569444444444444,
+                    "compromised": true,
+                    "exec_time_ms": 0.77343,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.23275862068965517,
+                    "compromised": true,
+                    "exec_time_ms": 0.50688,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.27586206896551724,
+                    "compromised": true,
+                    "exec_time_ms": 0.56052,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2601626016260163,
+                    "compromised": true,
+                    "exec_time_ms": 0.55122,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.20610687022900764,
+                    "compromised": true,
+                    "exec_time_ms": 0.46062,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.3140495867768595,
+                    "compromised": true,
+                    "exec_time_ms": 0.50592,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.26229508196721313,
+                    "compromised": true,
+                    "exec_time_ms": 0.51355,
+                    "sifted_key_length": 32
+                }
+            ]
+        },
+        "512": {
+            "no_eve": [
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.0047,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.72289,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.73051,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.72384,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.71311,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.24264,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.18995,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.73743,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.71549,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.1766,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.89931,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.80657,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.74673,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.72384,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.71883,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.7205,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.72074,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.82636,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.69499,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 0.70763,
+                    "sifted_key_length": 32
+                }
+            ],
+            "eve": [
+                {
+                    "qber": 0.25096525096525096,
+                    "compromised": true,
+                    "exec_time_ms": 1.02305,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.24175824175824176,
+                    "compromised": true,
+                    "exec_time_ms": 0.99874,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.24535315985130113,
+                    "compromised": true,
+                    "exec_time_ms": 1.01018,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.23636363636363636,
+                    "compromised": true,
+                    "exec_time_ms": 1.70326,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2669172932330827,
+                    "compromised": true,
+                    "exec_time_ms": 1.70231,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.268,
+                    "compromised": true,
+                    "exec_time_ms": 1.19972,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2751937984496124,
+                    "compromised": true,
+                    "exec_time_ms": 1.03307,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2631578947368421,
+                    "compromised": true,
+                    "exec_time_ms": 0.9973,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.25,
+                    "compromised": true,
+                    "exec_time_ms": 1.0128,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.234375,
+                    "compromised": true,
+                    "exec_time_ms": 1.00398,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2664233576642336,
+                    "compromised": true,
+                    "exec_time_ms": 1.01566,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.23622047244094488,
+                    "compromised": true,
+                    "exec_time_ms": 1.01614,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.23931623931623933,
+                    "compromised": true,
+                    "exec_time_ms": 1.02878,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.23863636363636365,
+                    "compromised": true,
+                    "exec_time_ms": 1.0016,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.24334600760456274,
+                    "compromised": true,
+                    "exec_time_ms": 1.0128,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2950191570881226,
+                    "compromised": true,
+                    "exec_time_ms": 1.00756,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.25,
+                    "compromised": true,
+                    "exec_time_ms": 1.02401,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2786885245901639,
+                    "compromised": true,
+                    "exec_time_ms": 1.36614,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2846715328467153,
+                    "compromised": true,
+                    "exec_time_ms": 1.31702,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.25,
+                    "compromised": true,
+                    "exec_time_ms": 1.67298,
+                    "sifted_key_length": 32
+                }
+            ]
+        },
+        "1024": {
+            "no_eve": [
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.63674,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.44219,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.44482,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.47724,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.71041,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.35422,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.45578,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.64366,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.37353,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.68419,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.46294,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.46532,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.68419,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.51873,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.42312,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.43528,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.42407,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 2.07329,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.42288,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.0,
+                    "compromised": false,
+                    "exec_time_ms": 1.49608,
+                    "sifted_key_length": 32
+                }
+            ],
+            "eve": [
+                {
+                    "qber": 0.2718631178707224,
+                    "compromised": true,
+                    "exec_time_ms": 2.62165,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2578125,
+                    "compromised": true,
+                    "exec_time_ms": 1.93334,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2476007677543186,
+                    "compromised": true,
+                    "exec_time_ms": 1.88112,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2679245283018868,
+                    "compromised": true,
+                    "exec_time_ms": 1.83487,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.278,
+                    "compromised": true,
+                    "exec_time_ms": 1.86062,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.23668639053254437,
+                    "compromised": true,
+                    "exec_time_ms": 1.95503,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.27010309278350514,
+                    "compromised": true,
+                    "exec_time_ms": 1.86157,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.24763705103969755,
+                    "compromised": true,
+                    "exec_time_ms": 1.97124,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2895238095238095,
+                    "compromised": true,
+                    "exec_time_ms": 2.48837,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2126537785588752,
+                    "compromised": true,
+                    "exec_time_ms": 2.03371,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2278719397363465,
+                    "compromised": true,
+                    "exec_time_ms": 2.01082,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.234,
+                    "compromised": true,
+                    "exec_time_ms": 1.99413,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.2587548638132296,
+                    "compromised": true,
+                    "exec_time_ms": 2.01631,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.24632352941176472,
+                    "compromised": true,
+                    "exec_time_ms": 2.08449,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.26022304832713755,
+                    "compromised": true,
+                    "exec_time_ms": 2.04158,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.23106796116504855,
+                    "compromised": true,
+                    "exec_time_ms": 2.00009,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.20939334637964774,
+                    "compromised": true,
+                    "exec_time_ms": 2.49553,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.25656565656565655,
+                    "compromised": true,
+                    "exec_time_ms": 2.01583,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.23151750972762647,
+                    "compromised": true,
+                    "exec_time_ms": 1.98579,
+                    "sifted_key_length": 32
+                },
+                {
+                    "qber": 0.23925233644859814,
+                    "compromised": true,
+                    "exec_time_ms": 2.00176,
+                    "sifted_key_length": 32
+                }
+            ]
+        }
+    }
+}
