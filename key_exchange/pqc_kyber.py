@@ -1,11 +1,6 @@
 import secrets
 import hashlib
 
-
-# =================================================================
-#  HELPERS
-# =================================================================
-
 def random_bytes(n: int) -> bytes:
     return secrets.token_bytes(n)
 
@@ -21,11 +16,6 @@ def kdf(label: bytes, *parts: bytes, length: int = 32) -> bytes:
 def clamp_to_byte_list(b: bytes) -> list:
     """Convert ANY bytes object into a list of 0–255 integers."""
     return [x for x in b]    # each x is already 0..255
-
-
-# =================================================================
-#  KYBER-LIKE SIMULATION (FIXED + BYTE-SAFE)
-# =================================================================
 
 def kyber_generate_keypair():
     """

@@ -7,19 +7,12 @@ import matplotlib.pyplot as plt
 
 from qkd_simulator import run_qkd_key_exchange
 
-# ============================================================
-# CREATE METRIC OUTPUT FOLDERS
-# ============================================================
 BASE_DIR = "qkd_metrics"
 PLOT_DIR = os.path.join(BASE_DIR, "plots")
 
 os.makedirs(BASE_DIR, exist_ok=True)
 os.makedirs(PLOT_DIR, exist_ok=True)
 
-
-# ============================================================
-# QKD METRICS COLLECTION FUNCTION
-# ============================================================
 def run_metrics(bit_lengths, runs_per_case=20):
     results = {
         "bit_lengths": bit_lengths,
@@ -35,9 +28,6 @@ def run_metrics(bit_lengths, runs_per_case=20):
 
         print(f"\n=== Running QKD metrics for bit_length = {bits} ===")
 
-        # -------------------------
-        # NO EVE
-        # -------------------------
         for _ in range(runs_per_case):
             start = time.time()
             key, qber, compromised = run_qkd_key_exchange(bits, eve=False)
@@ -51,9 +41,6 @@ def run_metrics(bit_lengths, runs_per_case=20):
             }
             results["metrics"][bits]["no_eve"].append(entry)
 
-        # -------------------------
-        # WITH EVE
-        # -------------------------
         for _ in range(runs_per_case):
             start = time.time()
             key, qber, compromised = run_qkd_key_exchange(bits, eve=True)
@@ -69,20 +56,12 @@ def run_metrics(bit_lengths, runs_per_case=20):
 
     return results
 
-
-# ============================================================
-# SAVE RESULTS JSON
-# ============================================================
 def save_json(results):
     path = os.path.join(BASE_DIR, "results.json")
     with open(path, "w") as f:
         json.dump(results, f, indent=4)
     print(f"\n[+] Saved QKD Metrics → {path}")
 
-
-# ============================================================
-# PLOT GENERATORS
-# ============================================================
 def plot_metric(results, metric, ylabel, title, filename):
     plt.figure(figsize=(8,5))
 
@@ -114,11 +93,7 @@ def plot_metric(results, metric, ylabel, title, filename):
     print(f"[+] Saved plot → {save_path}")
 
 
-# ============================================================
-# MAIN EXECUTION
-# ============================================================
 if __name__ == "__main__":
-    # Choose QKD test sizes (IEEE-style)
     bit_lengths = [128, 256, 512, 1024]
 
     print("Running QKD Metrics Generator...")
@@ -126,9 +101,6 @@ if __name__ == "__main__":
     results = run_metrics(bit_lengths, runs_per_case=20)
     save_json(results)
 
-    # ----------------------
-    # IMPORTANT METRIC PLOTS
-    # ----------------------
     plot_metric(results, "qber",
                 "QBER", "QBER vs Bit Length",
                 "qber_vs_bit_length.png")

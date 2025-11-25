@@ -13,19 +13,12 @@ from pqc_kyber import (
     generate_pqc_shared_secret
 )
 
-# ============================================================
-# Folders
-# ============================================================
 BASE_DIR = "kyber_results"
 PLOT_DIR = os.path.join(BASE_DIR, "plots")
 
 os.makedirs(BASE_DIR, exist_ok=True)
 os.makedirs(PLOT_DIR, exist_ok=True)
 
-
-# ============================================================
-# Metrics Execution
-# ============================================================
 def run_kyber_metrics(runs=50):
     results = {
         "runs": runs,
@@ -35,9 +28,6 @@ def run_kyber_metrics(runs=50):
     for i in range(runs):
         print(f"[+] Run {i+1}/{runs}")
 
-        # ------------------------------
-        # Keypair Generation
-        # ------------------------------
         t0 = time.time()
         pk_list, sk = kyber_generate_keypair()
         t1 = time.time()
@@ -46,9 +36,6 @@ def run_kyber_metrics(runs=50):
 
         pk_size = len(pk_list)  # bytes
 
-        # ------------------------------
-        # Encapsulation
-        # ------------------------------
         t2 = time.time()
         ct_list, ss_sender = kyber_encapsulate(pk_list)
         t3 = time.time()
@@ -56,9 +43,6 @@ def run_kyber_metrics(runs=50):
         encaps_time = (t3 - t2) * 1000
         ct_size = len(ct_list)
 
-        # ------------------------------
-        # Decapsulation
-        # ------------------------------
         t4 = time.time()
         ss_receiver = kyber_decapsulate(ct_list, sk, pk_list)
         t5 = time.time()
@@ -67,9 +51,6 @@ def run_kyber_metrics(runs=50):
 
         kem_mismatch = ss_sender != ss_receiver
 
-        # ------------------------------
-        # Final Shared Secret
-        # ------------------------------
         t6 = time.time()
         final_key, _, _ = generate_pqc_shared_secret()
         t7 = time.time()
@@ -91,20 +72,12 @@ def run_kyber_metrics(runs=50):
 
     return results
 
-
-# ============================================================
-# Save Results JSON
-# ============================================================
 def save_json(results):
     path = os.path.join(BASE_DIR, "results.json")
     with open(path, "w") as f:
         json.dump(results, f, indent=4)
     print(f"[+] Saved Kyber Metrics → {path}")
 
-
-# ============================================================
-# Plot helper
-# ============================================================
 def plot_metric(results, metric_key, ylabel, title, filename):
     data = [m[metric_key] for m in results["metrics"]]
 
@@ -122,10 +95,6 @@ def plot_metric(results, metric_key, ylabel, title, filename):
 
     print(f"[+] Saved plot → {save_path}")
 
-
-# ============================================================
-# Main
-# ============================================================
 if __name__ == "__main__":
     print("Running Kyber Metrics Generator...")
 
