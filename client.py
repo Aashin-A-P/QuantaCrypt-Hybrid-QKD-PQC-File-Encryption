@@ -17,10 +17,6 @@ from audit.audit_signer import sign_log_entry
 HOST = "127.0.0.1"
 PORT = 7000
 
-
-# --------------------------
-# SAFE JSON RECEIVE
-# --------------------------
 def recv_json(conn):
     buf = b""
     while b"\n" not in buf:
@@ -30,10 +26,6 @@ def recv_json(conn):
         buf += chunk
     return json.loads(buf.decode().strip())
 
-
-# --------------------------
-# RECEIVE ONE ARTIFACT
-# --------------------------
 def recv_file(conn):
     header = recv_json(conn)
 
@@ -59,10 +51,6 @@ def recv_file(conn):
 
     return filename, bytes(data)
 
-
-# --------------------------
-# CLIENT MAIN LOOP
-# --------------------------
 def start_client():
     print("=====================================================")
     print("            QUANTACRYPT SECURE CLIENT")

@@ -1,5 +1,3 @@
-# dilithium_metrics_generator.py
-
 import os
 import time
 import json
@@ -14,27 +12,15 @@ from pqc_signature.dilithium_verify import (
     verify_signature,
 )
 
-
-# ============================================================
-# OUTPUT DIRECTORIES
-# ============================================================
 BASE_DIR = "dilithium_results"
 PLOT_DIR = os.path.join(BASE_DIR, "plots")
 
 os.makedirs(BASE_DIR, exist_ok=True)
 os.makedirs(PLOT_DIR, exist_ok=True)
 
-
-# ============================================================
-# RANDOM MESSAGE GENERATOR
-# ============================================================
 def generate_message(size):
     return os.urandom(size)
 
-
-# ============================================================
-# RUN METRICS
-# ============================================================
 def run_dilithium_metrics(sizes=[1024, 10_000, 100_000, 1_000_000], runs=20):
 
     results = {
@@ -59,9 +45,6 @@ def run_dilithium_metrics(sizes=[1024, 10_000, 100_000, 1_000_000], runs=20):
 
         for _ in range(runs):
 
-            # ----------------------------
-            # KEYPAR GENERATION
-            # ----------------------------
             t1 = time.time()
             pk, sk = generate_sig_keypair()
             t2 = time.time()
@@ -71,9 +54,6 @@ def run_dilithium_metrics(sizes=[1024, 10_000, 100_000, 1_000_000], runs=20):
             results["metrics"][size]["pk_size"].append(len(pk))
             results["metrics"][size]["sk_size"].append(len(sk))
 
-            # ----------------------------
-            # SIGNATURE GENERATION
-            # ----------------------------
             message = generate_message(size)
 
             t3 = time.time()
@@ -84,9 +64,6 @@ def run_dilithium_metrics(sizes=[1024, 10_000, 100_000, 1_000_000], runs=20):
             results["metrics"][size]["sign_time_ms"].append(sign_ms)
             results["metrics"][size]["sig_size"].append(len(sig))
 
-            # ----------------------------
-            # VERIFICATION
-            # ----------------------------
             t5 = time.time()
             ok = verify_signature(message, sig, pk)
             t6 = time.time()
@@ -95,29 +72,18 @@ def run_dilithium_metrics(sizes=[1024, 10_000, 100_000, 1_000_000], runs=20):
             results["metrics"][size]["verify_time_ms"].append(verify_ms)
             results["metrics"][size]["verify_success"].append(ok)
 
-            # ----------------------------
-            # NEGATIVE TEST (TAMPERED)
-            # ----------------------------
             tampered_msg = message + b"x"
             wrong = verify_signature(tampered_msg, sig, pk)
             results["metrics"][size]["verify_failure"].append(wrong)
 
     return results
 
-
-# ============================================================
-# SAVE JSON
-# ============================================================
 def save_json(results):
     fname = os.path.join(BASE_DIR, "results.json")
     with open(fname, "w") as f:
         json.dump(results, f, indent=4)
     print(f"[✓] Saved results → {fname}")
 
-
-# ============================================================
-# PLOTTING
-# ============================================================
 def plot_metric(results, metric_key, ylabel, title, filename):
 
     sizes = results["message_sizes"]
@@ -139,10 +105,6 @@ def plot_metric(results, metric_key, ylabel, title, filename):
 
     print(f"[+] Plot saved → {save_path}")
 
-
-# ============================================================
-# MAIN
-# ============================================================
 if __name__ == "__main__":
 
     results = run_dilithium_metrics()

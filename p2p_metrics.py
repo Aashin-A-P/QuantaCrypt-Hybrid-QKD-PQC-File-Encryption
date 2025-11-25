@@ -96,11 +96,6 @@ def run_metrics():
 
     return results
 
-
-# ============================================================
-# Plotting Functions
-# ============================================================
-
 def plot_peer_vs_latency(results):
     for file_size, data in results.items():
         peers = []
@@ -159,8 +154,6 @@ def plot_box_latency(results):
         plt.close()
         print(f"[+] Saved plot → {out}")
 
-
-# ============================================================
 
 if __name__ == "__main__":
     print("\nRunning SIMPLE P2P Metrics...\n")

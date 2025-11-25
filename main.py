@@ -22,11 +22,6 @@ from pqc_signature.dilithium_verify import verify_file_signature
 from audit.audit_log import create_log_entry, append_log
 from audit.audit_signer import sign_log_entry
 
-
-# ==========================================================
-# SENDER WORKFLOW
-# ==========================================================
-
 def sender_encrypt_and_sign(input_file: str):
     print("\n=== SENDER SIDE ===")
 
@@ -72,11 +67,6 @@ def sender_encrypt_and_sign(input_file: str):
     # Everything receiver needs
     return packaged, signature, pk_sig, sk_sig, hybrid_key
 
-
-# ==========================================================
-# RECEIVER WORKFLOW
-# ==========================================================
-
 def receiver_verify_and_decrypt(packed_bytes: bytes, signature: bytes,
                                 pk_sig: bytes, sk_sig: bytes,
                                 hybrid_key: bytes, output_file: str):
@@ -108,11 +98,6 @@ def receiver_verify_and_decrypt(packed_bytes: bytes, signature: bytes,
     append_log(sign_log_entry(entry2, sk_sig, pk_sig), sk_sig, pk_sig)
 
     print("[+] Audit Log Updated")
-
-
-# ==========================================================
-# CLI ENTRYPOINT
-# ==========================================================
 
 if __name__ == "__main__":
     import argparse

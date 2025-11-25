@@ -1,4 +1,3 @@
-# verify_final_hash.py
 # Minimal audit log integrity check
 
 import json

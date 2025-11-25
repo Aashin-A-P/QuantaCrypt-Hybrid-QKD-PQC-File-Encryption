@@ -10,27 +10,15 @@ from crypto_core.file_encryptor import encrypt_file_bytes
 from crypto_core.file_decryptor import decrypt_packed_file
 from crypto_core.file_packager import package_encrypted_file, unpack_encrypted_file
 
-
-# ============================================================
-# OUTPUT DIRECTORIES
-# ============================================================
 BASE_DIR = "crypto_results"
 PLOT_DIR = os.path.join(BASE_DIR, "plots")
 
 os.makedirs(BASE_DIR, exist_ok=True)
 os.makedirs(PLOT_DIR, exist_ok=True)
 
-
-# ============================================================
-# TEST FILE GENERATOR
-# ============================================================
 def generate_random_bytes(size):
     return os.urandom(size)
 
-
-# ============================================================
-# RUN METRICS
-# ============================================================
 def run_crypto_metrics(sizes = [
     1024,            # 1 KB
     10_000,          # 10 KB
@@ -66,9 +54,6 @@ def run_crypto_metrics(sizes = [
         for _ in range(runs):
             file_bytes = generate_random_bytes(size)
 
-            # --------------------------
-            # ENCRYPTION
-            # --------------------------
             t1 = time.time()
             ciphertext, nonce, tag = encrypt_file_bytes(key, file_bytes)
             t2 = time.time()
@@ -76,9 +61,6 @@ def run_crypto_metrics(sizes = [
             enc_time = (t2 - t1) * 1000
             results["metrics"][size]["encrypt_time_ms"].append(enc_time)
 
-            # --------------------------
-            # PACKAGING
-            # --------------------------
             t3 = time.time()
             packaged = package_encrypted_file(ciphertext, nonce, tag, size)
             t4 = time.time()
@@ -90,9 +72,6 @@ def run_crypto_metrics(sizes = [
             results["metrics"][size]["ciphertext_size"].append(len(ciphertext))
             results["metrics"][size]["package_size"].append(len(packaged))
 
-            # --------------------------
-            # UNPACK
-            # --------------------------
             t5 = time.time()
             version, n, t, orig_size, cipher = unpack_encrypted_file(packaged)
             t6 = time.time()
@@ -100,9 +79,6 @@ def run_crypto_metrics(sizes = [
             unpack_time = (t6 - t5) * 1000
             results["metrics"][size]["unpack_time_ms"].append(unpack_time)
 
-            # --------------------------
-            # DECRYPTION
-            # --------------------------
             t7 = time.time()
             dec = decrypt_packed_file(key, packaged)
             t8 = time.time()
@@ -110,28 +86,17 @@ def run_crypto_metrics(sizes = [
             dec_time = (t8 - t7) * 1000
             results["metrics"][size]["decrypt_time_ms"].append(dec_time)
 
-            # --------------------------
-            # THROUGHPUT
-            # --------------------------
             throughput = (size / (enc_time / 1000)) / (1024 * 1024)
             results["metrics"][size]["throughput_MBps"].append(throughput)
 
     return results
 
-
-# ============================================================
-# SAVE JSON
-# ============================================================
 def save_json(results):
     path = os.path.join(BASE_DIR, "results.json")
     with open(path, "w") as f:
         json.dump(results, f, indent=4)
     print(f"[+] Saved crypto results → {path}")
 
-
-# ============================================================
-# PLOTTING HELPERS
-# ============================================================
 def plot_metric(results, metric, ylabel, title, filename):
     sizes = results["file_sizes"]
     averages = []
@@ -153,10 +118,6 @@ def plot_metric(results, metric, ylabel, title, filename):
 
     print(f"[+] Saved plot → {save_path}")
 
-
-# ============================================================
-# MAIN EXECUTION
-# ============================================================
 if __name__ == "__main__":
     print("\nRunning Crypto Metrics Generator...\n")
 

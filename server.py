@@ -23,17 +23,9 @@ from audit.pychain_anchor import anchor_to_blockchain
 HOST = "0.0.0.0"
 PORT = 7000
 
-
-# --------------------------
-# SAFE JSON SEND
-# --------------------------
 def send_json(conn, obj):
     conn.sendall((json.dumps(obj) + "\n").encode())
 
-
-# --------------------------
-# SAFE FILE SEND (JSON + BIN)
-# --------------------------
 def send_file(conn, filepath):
     size = os.path.getsize(filepath)
     send_json(conn, {
@@ -49,10 +41,6 @@ def send_file(conn, filepath):
                 break
             conn.sendall(chunk)
 
-
-# --------------------------
-# MAIN SERVER LOOP
-# --------------------------
 def start_server():
     print("=====================================================")
     print("         QuantaCrypt SECURE SERVER (SENDER)")
@@ -120,17 +108,11 @@ def start_server():
         append_log(sign_log_entry(entry, sk_sig, pk_sig))
         anchor_to_blockchain()
 
-        # =========================================================
-        # SEND MAIN HEADER (Start of transfer)
-        # =========================================================
         send_json(conn, {
             "type": "INCOMING_FILE",
             "filename": filename
         })
 
-        # =========================================================
-        # SEND ALL 5 ARTIFACTS
-        # =========================================================
         send_file(conn, "cipher_package.bin")
         send_file(conn, "cipher_signature.bin")
         send_file(conn, "sender_pk_sig.bin")

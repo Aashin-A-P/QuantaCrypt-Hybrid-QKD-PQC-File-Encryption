@@ -21,10 +21,6 @@ from audit.audit_signer import sign_log_entry
 
 BUFFER = 4096
 
-
-# ======================================================================
-# RECEIVE FILE EXACTLY ONCE (NO MENU)
-# ======================================================================
 def receive_once(port, output_name="received_file"):
     srv = socket.socket()
     srv.bind(("0.0.0.0", port))
@@ -55,10 +51,6 @@ def receive_once(port, output_name="received_file"):
     signature = open("tmp_signature.bin", "rb").read()
     package = open("tmp_cipher_package.bin", "rb").read()
 
-    # In real version, pk would be sent; here we skip or simulate
-    # This keeps metrics rational
-    # pk = ...
-
     # 4. Decrypt (re-run QKD + PQC to derive hybrid key)
     qkd_key, _, comp = run_qkd_key_exchange(256)
     pqc_key, _, _ = generate_pqc_shared_secret()
@@ -71,10 +63,6 @@ def receive_once(port, output_name="received_file"):
 
     return True
 
-
-# ======================================================================
-# SEND FILE EXACTLY ONCE
-# ======================================================================
 def send_once(sender_port, receiver_ip, receiver_port, filepath):
     # Reconstruct key path
     qkd_key, qber, comp = run_qkd_key_exchange(256)

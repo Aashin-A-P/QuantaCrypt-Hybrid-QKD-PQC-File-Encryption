@@ -21,17 +21,9 @@ from audit.audit_log import create_log_entry, append_log
 from audit.audit_signer import sign_log_entry
 from audit.pychain_anchor import anchor_to_blockchain
 
-
-# ============================================================
-# CONFIG + PORT ARGUMENT
-# ============================================================
 PORT = int(sys.argv[1]) if len(sys.argv) > 1 else 7000
 print(f"[P2P] Running on port {PORT}")
 
-
-# ============================================================
-# SAFE JSON SEND/RECEIVE
-# ============================================================
 def send_json(conn, obj):
     conn.sendall((json.dumps(obj) + "\n").encode())
 
@@ -45,10 +37,6 @@ def recv_json(conn):
         buf += chunk
     return json.loads(buf.decode().strip())
 
-
-# ============================================================
-# FILE SEND/RECV (EXACT FROM SERVER/CLIENT)
-# ============================================================
 def send_file(conn, filepath):
     size = os.path.getsize(filepath)
     send_json(conn, {
@@ -81,10 +69,6 @@ def recv_file(conn):
 
     return filename, bytes(data)
 
-
-# ============================================================
-# RECEIVER SIDE (LISTENER THREAD)
-# ============================================================
 def listener():
     srv = socket.socket()
     srv.bind(("0.0.0.0", PORT))
@@ -154,10 +138,6 @@ def receive_secure_file(conn):
 
     conn.close()
 
-
-# ============================================================
-# SENDER SIDE (EXACT FROM SERVER)
-# ============================================================
 def send_secure(peer_ip, peer_port, filepath):
     conn = socket.socket()
     conn.connect((peer_ip, peer_port))
@@ -211,10 +191,6 @@ def send_secure(peer_ip, peer_port, filepath):
     print("[P2P] File sent successfully.")
     conn.close()
 
-
-# ============================================================
-# MAIN LOOP
-# ============================================================
 if __name__ == "__main__":
     threading.Thread(target=listener, daemon=True).start()
 

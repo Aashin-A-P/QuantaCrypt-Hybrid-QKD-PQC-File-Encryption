@@ -28,10 +28,6 @@ from pqc_signature.dilithium_verify import verify_file_signature
 from audit.audit_log import create_log_entry, append_log
 from audit.audit_signer import sign_log_entry
 
-
-# =========================================================
-# STREAMLIT PAGE CONFIG
-# =========================================================
 st.set_page_config(
     page_title="QuantaCrypt Hybrid Quantum-Safe Encryption",
     layout="wide",
@@ -42,18 +38,10 @@ st.set_page_config(
 st.title("🔐 QuantaCrypt — Hybrid QKD + PQC Quantum-Safe Encryption System")
 st.markdown("---")
 
-
-# =========================================================
-# SESSION STATE (to persist encrypted results)
-# =========================================================
 if "encrypted" not in st.session_state:
     st.session_state.encrypted = False
     st.session_state.data = {}
 
-
-# =========================================================
-# ENCRYPTION WORKFLOW (STREAMLIT)
-# =========================================================
 if st.sidebar.button("Encryption Page"):
     st.session_state.page = "encrypt"
 
@@ -67,11 +55,6 @@ if st.sidebar.button("Audit Log"):
 if "page" not in st.session_state:
     st.session_state.page = "encrypt"
 
-
-
-# =========================================================
-# PAGE: ENCRYPTION
-# =========================================================
 if st.session_state.page == "encrypt":
     st.header("🔏 Encrypt & Sign File")
 
@@ -88,18 +71,12 @@ if st.session_state.page == "encrypt":
 
         st.info(f"File size: **{file_size} bytes**")
 
-        # ============================
-        # QKD
-        # ============================
         qkd_key, qber, compromised_qkd = run_qkd_key_exchange(eve=eve_attack)
 
         st.subheader("🔹 QKD Results")
         st.write(f"QBER: **{qber:.4f}**")
         st.write(f"Channel Compromised: **{compromised_qkd}**")
 
-        # ============================
-        # PQC KEM (Kyber)
-        # ============================
         pqc_key, pk_kem, ct_kem = generate_pqc_shared_secret()
 
         compromised_pqc = pqc_attack   # simulate PQC break
@@ -111,9 +88,6 @@ if st.session_state.page == "encrypt":
         if compromised_pqc:
             pqc_key = b"\x00" * 32   # corrupted secret
 
-        # ============================
-        # HYBRID KEY
-        # ============================
         hybrid_key = derive_hybrid_key(qkd_key, pqc_key)
 
         st.subheader("🔑 Hybrid Key (QKD ⊕ PQC)")
@@ -159,10 +133,6 @@ if st.session_state.page == "encrypt":
                 file_name="cipher_signature.bin",
             )
 
-
-# =========================================================
-# PAGE: DECRYPTION
-# =========================================================
 elif st.session_state.page == "decrypt":
     st.header("🔓 Decrypt File")
 
@@ -205,10 +175,6 @@ elif st.session_state.page == "decrypt":
                 file_name=f"DECRYPTED_{data['file_name']}",
             )
 
-
-# =========================================================
-# PAGE: AUDIT LOG
-# =========================================================
 elif st.session_state.page == "audit":
     st.header("📘 Audit Log")
 

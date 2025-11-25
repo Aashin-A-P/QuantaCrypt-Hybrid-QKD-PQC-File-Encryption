@@ -31,10 +31,6 @@ if os.path.exists("audit.log"):
 if os.path.exists("audit_anchor.json"):
     os.remove("audit_anchor.json")
 
-
-# -------------------------------------------------------------
-# RUN AUDIT METRICS
-# -------------------------------------------------------------
 def run_audit_metrics(runs=20):
     results = {
         "runs": runs,
@@ -44,9 +40,6 @@ def run_audit_metrics(runs=20):
     for i in range(runs):
         print(f"[+] Run {i+1}/{runs}")
 
-        # -----------------------------
-        # ENTRY CREATION
-        # -----------------------------
         t1 = time.time()
         entry = create_log_entry("TEST_EVENT", {"value": random.randint(1, 999)})
         t2 = time.time()
@@ -55,9 +48,6 @@ def run_audit_metrics(runs=20):
         # Entry size
         entry_size = len(json.dumps(entry).encode())
 
-        # -----------------------------
-        # PQC SIGNATURE
-        # -----------------------------
         t3 = time.time()
         signed_entry = sign_log_entry(entry, sk, pk)
         t4 = time.time()
@@ -72,9 +62,6 @@ def run_audit_metrics(runs=20):
         t6 = time.time()
         verify_time_ms = (t6 - t5) * 1000
 
-        # -----------------------------
-        # APPEND + HASH-CHAIN
-        # -----------------------------
         t7 = time.time()
         append_log(signed_entry, sk, pk)
         t8 = time.time()
@@ -86,9 +73,6 @@ def run_audit_metrics(runs=20):
         t10 = time.time()
         get_hash_ms = (t10 - t9) * 1000
 
-        # -----------------------------
-        # BLOCKCHAIN ANCHOR
-        # -----------------------------
         t11 = time.time()
         anchor_data = anchor_to_blockchain()
         t12 = time.time()
@@ -96,9 +80,6 @@ def run_audit_metrics(runs=20):
         anchor_time_ms = (t12 - t11) * 1000
         audit_log_hash = compute_audit_hash()
 
-        # -----------------------------
-        # TAMPER DETECTION TEST
-        # -----------------------------
         tamper_result = verify_anchor()
         tamper_ok = tamper_result["status"]
 
@@ -121,20 +102,12 @@ def run_audit_metrics(runs=20):
 
     return results
 
-
-# -------------------------------------------------------------
-# SAVE RESULTS JSON
-# -------------------------------------------------------------
 def save_json(results):
     path = os.path.join(BASE_DIR, "results.json")
     with open(path, "w") as f:
         json.dump(results, f, indent=4)
     print(f"[✓] Saved audit metrics → {path}")
 
-
-# -------------------------------------------------------------
-# PLOT HELPER
-# -------------------------------------------------------------
 def plot_metric(results, key, ylabel, title, filename):
     data = [m[key] for m in results["metrics"]]
     avg = statistics.mean(data)
@@ -152,10 +125,6 @@ def plot_metric(results, key, ylabel, title, filename):
 
     print(f"[+] Saved → {save_path}")
 
-
-# -------------------------------------------------------------
-# MAIN
-# -------------------------------------------------------------
 if __name__ == "__main__":
     results = run_audit_metrics(runs=20)
     save_json(results)
